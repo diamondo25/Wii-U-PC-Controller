@@ -1,2 +1,2 @@
-# Wii-U-PC-Controller
+# Wii U PC Controller
 Control your PC with your Wii U gamepad controller
