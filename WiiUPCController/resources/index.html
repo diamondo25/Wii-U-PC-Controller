@@ -7,10 +7,28 @@
     <title>Wii U PC Controller</title>
     <meta name="description" content="Wii U PC Controller Server">
     <meta name="author" content="John Freed">
+    <script type="text/javascript" src="http://code.jquery.com/jquery-2.1.3.min.js"></script>
 
 </head>
 
 <body>
     <p>Hello World</p>
+    <h1 id="test"></h1>
 </body>
+
+<script type="text/javascript">
+    function init() {
+        if (window.wiiu) {
+            setInterval('update()', 20);
+        }
+        else {
+            alert('You must use the Wii U browser!');
+        }
+    }
+
+    function update() {
+        document.getElementById('test').innerHTML = 'test';
+    }
+</script>
+
 </html>
