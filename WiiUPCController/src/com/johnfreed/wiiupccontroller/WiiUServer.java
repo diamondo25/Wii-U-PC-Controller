@@ -1,5 +1,8 @@
 package com.johnfreed.wiiupccontroller;
 
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.ServerSocket;
@@ -33,6 +36,7 @@ public class WiiUServer {
 					out.println("HTTP/1.1 200 OK");
 					out.println("Content-Type: text/html");
 					out.println();
+					out.println(RetrieveIndexHTML());
 					out.flush();
 					out.close();
 					scanner.close();
@@ -54,6 +58,21 @@ public class WiiUServer {
 				printDebugMessage("Caught exception: " + ex.getMessage());
 			}
 		}
+	}
+	
+	private String RetrieveIndexHTML() throws IOException {
+		String stringToReturn = "";
+		
+		String file = "resources/index.html";
+		BufferedReader br = new BufferedReader(new FileReader(file));
+		
+		String line;
+		while ((line = br.readLine()) != null)
+		{
+			stringToReturn += line;
+		}
+		
+		return stringToReturn;
 	}
 	
 	private void printDebugMessage(Object message) {
