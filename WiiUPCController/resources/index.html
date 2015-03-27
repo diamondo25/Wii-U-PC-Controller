@@ -3,6 +3,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
+    <meta name="viewport" content="width=854 height=480 user-scalable=no" />
 
     <title>Wii U PC Controller</title>
     <meta name="description" content="Wii U PC Controller Server">
@@ -16,20 +17,85 @@
     var request = new XMLHttpRequest();
 
     function init() {
-        setInterval('update()', 40);
+        setInterval('update()', 250);
     }
 
     function update() {
-        var gamepadData = {r: 0, l_stick_left: 0, l_stick_right: 0, l_stick_up: 0, l_stick_down: 0, r_stick_left: 0, r_stick_right: 0, r_stick_up: 0, r_stick_down: 0, l_stick_press: 0, r_stick_press: 0, a: 0, b: 0, x: 0, y: 0, left: 0, right: 0, up: 0, down: 0, zl: 0, zr: 0, plus: 0, minus: 0, tt_x: 0, tt_y: 0, tt: 0, l_x_deflect: 0, l_y_deflect: 0, r_x_deflect: 0, r_y_deflect: 0};
-        request.open("POST", "http://localhost:1337/Command", true);
+        var gamepadData = window.wiiu.gamepad.update();
+
+        // Send the gamepad data to the server
+        request.open("POST", "http://192.168.1.210:1337/Command", true);
         request.setRequestHeader("Content-type", "application/x-www-form-urlencode");
         request.send(JSON.stringify(gamepadData));
+
+        // Update the page with the current values
+        document.getElementById('rStickY').innerHTML = 'rStickY: ' + gamepadData.rStickY;
+        document.getElementById('dirXy').innerHTML = 'DirXy: ' + gamepadData.dirXy;
+        document.getElementById('rStickX').innerHTML = 'rStickX: ' + gamepadData.rStickX;
+        document.getElementById('gyroY').innerHTML = 'gyroY: ' + gamepadData.gyroY;
+        document.getElementById('dirXx').innerHTML = 'dirXx: ' + gamepadData.dirXx;
+        document.getElementById('gyroX').innerHTML = 'gyroX: ' + gamepadData.gyroX;
+        document.getElementById('lStickY').innerHTML = 'lStickY: ' + gamepadData.lStickY;
+        document.getElementById('dirZz').innerHTML = 'dirZz: ' + gamepadData.dirZz;
+        document.getElementById('contentX').innerHTML = 'contentX: '  + gamepadData.contentX;
+        document.getElementById('andleX').innerHTML = 'angleX: ' + gamepadData.angleX;
+        document.getElementById('tpY').innerHTML = 'tpY: ' + gamepadData.tpY;
+        document.getElementById('accX').innerHTML = 'accX: ' + gamepadData.accX;
+        document.getElementById('accZ').innerHTML = 'accZ: ' + gamepadData.accZ;
+        document.getElementById('tpValidity').innerHTML = 'tpValidity: ' + gamepadData.tpValidity;
+        document.getElementById('isEnabled').innerHTML = 'isEnabled: ' + gamepadData.isEnabled;
+        document.getElementById('dirYz').innerHTML = 'dirYz: ' + gamepadData.dirYz;
+        document.getElementById('dirXz').innerHTML = 'dirXz: ' + gamepadData.dirXz;
+        document.getElementById('lStickX').innerHTML = 'lStickX: ' + gamepadData.lStickX;
+        document.getElementById('dirYx').innerHTML = 'dirYx: ' + gamepadData.dirYx;
+        document.getElementById('angleY').innerHTML = 'angleY: ' + gamepadData.angleY;
+        document.getElementById('tpTouch').innerHTML = 'tpTouch: ' + gamepadData.tpTouch;
+        document.getElementById('tpX').innerHTML = 'tpX: ' + gamepadData.tpX;
+        document.getElementById('dirZx').innerHTML = 'dirZx: ' + gamepadData.dirZx;
+        document.getElementById('contentY').innerHTML = 'contentY: ' + gamepadData.contentY;
+        document.getElementById('hold').innerHTML = 'hold: ' + gamepadData.hold;
+        document.getElementById('accY').innerHTML = 'accY: ' + gamepadData.accY;
+        document.getElementById('gyroZ').innerHTML = 'gyroZ: ' + gamepadData.gyroZ;
+        document.getElementById('angleZ').innerHTML = 'angleZ: ' + gamepadData.angleZ;
+        document.getElementById('dirYy').innerHTML = 'dirYy: ' + gamepadData.dirYy;
+        document.getElementById('dirZy').innerHTML = 'dirZy: ' + gamepadData.dirZy;
     }
 </script>
 
 <body onload="init()">
     <p>Hello World</p>
-    <input type="button" id="btnDemo" value="Demo"/>
+    </br>
+    <p id='isEnabled'></p>
+    <p id='hold'></p>
+    <p id='accX'></p>
+    <p id='accY'></p>
+    <p id='accZ'></p>
+    <p id='dirXy'></p>
+    <p id='dirXx'></p>
+    <p id='dirXy'></p>
+    <p id='dirXz'></p>
+    <p id='dirYx'></p>
+    <p id='dirYz'></p>
+    <p id='dirYy'></p>
+    <p id='dirZz'></p>
+    <p id='dirZx'></p>
+    <p id='dirZy'></p>
+    <p id='lStickX'></p>
+    <p id='lStickY'></p>
+    <p id='rStickX'></p>
+    <p id='rStickY'></p>
+    <p id='gyroX'></p>
+    <p id='gyroY'></p>
+    <p id='gyroZ'></p>
+    <p id='contentX'></p>
+    <p id='contentY'></p>
+    <p id='andleX'></p>
+    <p id='angleY'></p>
+    <p id='angleZ'></p>
+    <p id='tpX'></p>
+    <p id='tpY'></p>
+    <p id='tpTouch'></p>
+    <p id='tpValidity'></p>
 </body>
 
 </html>

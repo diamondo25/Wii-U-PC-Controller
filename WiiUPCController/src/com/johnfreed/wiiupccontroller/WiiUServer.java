@@ -29,7 +29,6 @@ public class WiiUServer {
 				Scanner scanner = new Scanner(socket.getInputStream());
 				
 				String nextLine = scanner.nextLine();
-				System.out.println(nextLine);
 				
 				// Main page
 				if (nextLine.split(" ")[1].equals("/")) {
@@ -58,21 +57,22 @@ public class WiiUServer {
 				}
 				
 				// Commands
+				/*
 				if (nextLine.split(" ")[0].equals("POST") && nextLine.split(" ")[1].equals("/Command"))
 				{
-					System.out.println("Derp");
-					continue;
+					//System.out.println("Derp");
+					//continue;
 				}
+				*/
 				
 				while (scanner.hasNextLine()) {
 					String line = scanner.nextLine();
-					System.out.println(line);
+					
 					if (line.equals("")) {
 						line = scanner.nextLine();
 						System.out.println(line);
 						HashMap<String, Float> data = ParseWiiUData(line);
 					}
-					System.out.println(line);
 				}
 				
 				PrintWriter out = new PrintWriter(socket.getOutputStream());
