@@ -1,18 +1,20 @@
 package com.johnfreed.wiiupccontroller;
 
-import java.io.IOException;
-
 public class Main {
 
 	public static void main(String[] args) {
-		// Set up the server
-		WiiUServer server = new WiiUServer();
-		server.setPort(1338);
-		server.setPrintDebugStatements(true);
-		
 		try {
+			// Set up the controller
+			PCController controller = new PCController();
+			
+			// Set up the server
+			WiiUServer server = new WiiUServer(controller);
+			server.setPort(1337);
+			server.setPrintDebugStatements(true);
+			
+			// Start the server
 			server.StartServer();
-		} catch (IOException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}

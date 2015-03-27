@@ -1,7 +1,6 @@
 package com.johnfreed.wiiupccontroller;
 
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -13,9 +12,10 @@ public class WiiUServer {
 	
 	private int mPort = 1337;
 	private boolean mPrintDebugStatements = false;
-
-	public WiiUServer() {
-		
+	private PCController mController;
+	
+	public WiiUServer(PCController controller) {
+		this.mController = controller;
 	}
 	
 	public void StartServer() throws IOException {
