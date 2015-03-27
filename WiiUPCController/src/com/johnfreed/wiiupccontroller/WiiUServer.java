@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.HashMap;
 import java.util.Scanner;
 
 public class WiiUServer {
@@ -25,7 +26,6 @@ public class WiiUServer {
 		while (true) {
 			try {
 				Socket socket = serverSocket.accept();
-				PrintWriter out = new PrintWriter(socket.getOutputStream());
 				Scanner scanner = new Scanner(socket.getInputStream());
 				
 				String nextLine = scanner.nextLine();
@@ -33,6 +33,7 @@ public class WiiUServer {
 				// Main page
 				if (nextLine.split(" ")[1].equals("/")) {
 					printDebugMessage("User connected");
+					PrintWriter out = new PrintWriter(socket.getOutputStream());
 					out.println("HTTP/1.1 200 OK");
 					out.println("Content-Type: text/html");
 					out.println();
@@ -40,35 +41,73 @@ public class WiiUServer {
 					out.flush();
 					out.close();
 					scanner.close();
+					continue;
 				}
 				
 				// Favicon
 				if (nextLine.split(" ")[1].equals("/favicon.ico")) {
 					printDebugMessage("Requested favicon");
+					PrintWriter out = new PrintWriter(socket.getOutputStream());
 					out.println("HTTP/1.1 404 Not Found");
 					out.println();
 					out.flush();
 					out.close();
 					scanner.close();
+					continue;
 				}
 				
 				// Commands
 				if (nextLine.split(" ")[0].equals("POST") && nextLine.split(" ")[1].equals("/Command"))
 				{
-					printDebugMessage("Received Command");
-					while (scanner.hasNextLine())
-					{
-						String line = scanner.next();
-						printDebugMessage(line);
-					}
+					continue;
 				}
 				
-				//printDebugMessage(nextLine);
+				while (scanner.hasNextLine()) {
+					String line = scanner.nextLine();
+					if (line.equals("")) {
+						line = scanner.nextLine();
+						HashMap<String, Float> data = ParseWiiUData(line);
+					}
+				}
+				PrintWriter out = new PrintWriter(socket.getOutputStream());
+				out.println("HTTP/1.1 200 OK");
+				out.println("Connection: close");
+				out.println();
+				out.flush();
+				out.close();
+				scanner.close();
 			}
 			catch (Exception ex) {
 				printDebugMessage("Caught exception: " + ex.getMessage());
 			}
 		}
+	}
+	
+	private HashMap<String, Float> ParseWiiUData(String JSON) {
+		HashMap<String, Float> data = new HashMap<String, Float>();
+		
+		// Replace brackets
+		String jsonData = JSON.replace("{", "");
+		jsonData = jsonData.replace("}", "");
+		
+		// Example data coming in: {"a":0,"b":1,"c":2}
+		
+		String[] dataPairs = jsonData.split(",");
+		
+		for (int idx = 0; idx < dataPairs.length; idx++) {
+			// Get a single data pair ex: "a":0
+			String dataPair = dataPairs[idx];
+			String[] temp = dataPair.split(":");
+			
+			// Get the key and value
+			String key = temp[0];
+			Float value = Float.valueOf(temp[1]);
+			
+			// Put the key value pair in the HashMap
+			data.put(key, value);
+		}
+		
+		return data;
 	}
 	
 	private String RetrieveIndexHTML() throws IOException {

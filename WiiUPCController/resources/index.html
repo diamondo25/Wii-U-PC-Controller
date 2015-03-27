@@ -19,6 +19,7 @@
 <script type="text/javascript">
 
     var request = new XMLHttpRequest();
+    var gamepadData = {r: 0, l_stick_left: 0, l_stick_right: 0, l_stick_up: 0, l_stick_down: 0, r_stick_left: 0, r_stick_right: 0, r_stick_up: 0, r_stick_down: 0, l_stick_press: 0, r_stick_press: 0, a: 0, b: 0, x: 0, y: 0, left: 0, right: 0, up: 0, down: 0, zl: 0, zr: 0, plus: 0, minus: 0, tt_x: 0, tt_y: 0, tt: 0, l_x_deflect: 0, l_y_deflect: 0, r_x_deflect: 0, r_y_deflect: 0}
 
     $(document).ready(function() {
         $(function() {
@@ -28,7 +29,7 @@
 
                 request.open("POST", "http://localhost:1337/Command", true);
                 request.setRequestHeader("Content-type", "application/x-www-form-urlencode");
-                request.send("Foo")
+                request.send(JSON.stringify(gamepadData));
             });
         });
     });
