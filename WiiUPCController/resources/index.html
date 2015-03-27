@@ -13,22 +13,25 @@
 
 <body>
     <p>Hello World</p>
-    <h1 id="test"></h1>
+    <input type="button" id="btnDemo" value="Demo"/>
 </body>
 
 <script type="text/javascript">
-    function init() {
-        if (window.wiiu) {
-            setInterval('update()', 20);
-        }
-        else {
-            alert('You must use the Wii U browser!');
-        }
-    }
 
-    function update() {
-        document.getElementById('test').innerHTML = 'test';
-    }
+    var request = new XMLHttpRequest();
+
+    $(document).ready(function() {
+        $(function() {
+            $("#btnDemo").click(function(e) {
+                e.preventDefault();
+                console.log('Clicked')
+
+                request.open("POST", "http://localhost:1337/Command", true);
+                request.setRequestHeader("Content-type", "application/x-www-form-urlencode");
+                request.send("Foo")
+            });
+        });
+    });
 </script>
 
 </html>

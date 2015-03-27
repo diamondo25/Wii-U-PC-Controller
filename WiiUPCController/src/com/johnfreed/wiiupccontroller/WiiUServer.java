@@ -52,7 +52,18 @@ public class WiiUServer {
 					scanner.close();
 				}
 				
-				printDebugMessage(nextLine);
+				// Commands
+				if (nextLine.split(" ")[0].equals("POST") && nextLine.split(" ")[1].equals("/Command"))
+				{
+					printDebugMessage("Received Command");
+					while (scanner.hasNextLine())
+					{
+						String line = scanner.next();
+						printDebugMessage(line);
+					}
+				}
+				
+				//printDebugMessage(nextLine);
 			}
 			catch (Exception ex) {
 				printDebugMessage("Caught exception: " + ex.getMessage());
@@ -69,7 +80,7 @@ public class WiiUServer {
 		String line;
 		while ((line = br.readLine()) != null)
 		{
-			stringToReturn += line;
+			stringToReturn += line + '\r';
 		}
 		
 		return stringToReturn;
