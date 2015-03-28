@@ -11,6 +11,14 @@ public class PCController {
 	private int autoDelay = 40;
 	private boolean waitForIdle = true;
 	
+	public ButtonState LeftClickState = ButtonState.Up;
+	public ButtonState RightClickState = ButtonState.Up;
+	
+	public enum ButtonState {
+		Up,
+		Down
+	}
+	
 	public PCController() throws AWTException {
 		robot = new Robot();
 		robot.setAutoDelay(autoDelay);
@@ -25,18 +33,32 @@ public class PCController {
 		robot.mouseMove(x, y);
 	}
 	
-	public void LeftClick() {
-		robot.mousePress(InputEvent.BUTTON1_MASK);
-		robot.delay(200);
-		robot.mouseRelease(InputEvent.BUTTON1_MASK);
-		robot.delay(200);
+	public void LeftClickDown() {
+		if (LeftClickState == ButtonState.Up) {
+			robot.mousePress(InputEvent.BUTTON1_MASK);
+			this.LeftClickState = ButtonState.Down;
+		}
 	}
 	
-	public void RightClick() {
-		robot.mousePress(InputEvent.BUTTON2_MASK);
-		robot.delay(200);
-		robot.mouseRelease(InputEvent.BUTTON2_MASK);
-		robot.delay(200);
+	public void LeftClickUp() {
+		if (LeftClickState == ButtonState.Down) {
+			robot.mouseRelease(InputEvent.BUTTON1_MASK);
+			this.LeftClickState = ButtonState.Up;
+		}
+	}
+	
+	public void RightClickDown() {
+		if (RightClickState == ButtonState.Up) {
+			robot.mousePress(InputEvent.BUTTON3_MASK);
+			this.RightClickState = ButtonState.Down;
+		}
+	}
+	
+	public void RightClickUp() {
+		if (RightClickState == ButtonState.Down) {
+			robot.mouseRelease(InputEvent.BUTTON3_MASK);
+			this.RightClickState = ButtonState.Up;
+		}
 	}
 	
 	public void TypeKey(int i) {
