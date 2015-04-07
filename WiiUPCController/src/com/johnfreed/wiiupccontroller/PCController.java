@@ -33,6 +33,22 @@ public class PCController {
 		robot.mouseMove(x, y);
 	}
 	
+	public void MoveMouseUp(float percentage) {
+		// Move the mouse up a certain percentage of the max speed
+	}
+	
+	public void MoveMouseDown(float percentage) {
+		// Move the mouse down a certain percentage of the max speed
+	}
+	
+	public void MoveMouseLeft(float percentage) {
+		// Move the mouse left a certain percentage of the max speed
+	}
+	
+	public void MoveMouseRight(float percentage) {
+		// Move the mouse right a certain percentage of the max speed
+	}
+	
 	public void LeftClickDown() {
 		if (LeftClickState == ButtonState.Up) {
 			robot.mousePress(InputEvent.BUTTON1_MASK);
