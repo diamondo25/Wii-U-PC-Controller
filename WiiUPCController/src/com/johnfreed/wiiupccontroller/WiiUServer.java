@@ -95,7 +95,13 @@ public class WiiUServer {
 						// First we'll take a look at the hold variable
 						String holdDataString = data.get("hold").toString().replace(".0", "");
 						try {
-							int holdData = Integer.valueOf(holdDataString);
+							// Right Stick
+							float XDeflection = data.get("rStickX");
+							float YDeflection = data.get("rStickY");
+							
+							mController.MoveMouse(XDeflection, YDeflection);
+							
+							long holdData = Long.valueOf(holdDataString);
 							
 							// A button held
 							if ((holdData & A_BUTTON_MASK) == A_BUTTON_MASK) {

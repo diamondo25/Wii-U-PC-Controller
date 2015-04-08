@@ -9,6 +9,7 @@ import java.awt.event.InputEvent;
 public class PCController {
 	private Robot robot;
 	private int autoDelay = 40;
+	private int sensitivity = 20;
 	private boolean waitForIdle = true;
 	
 	public ButtonState LeftClickState = ButtonState.Up;
@@ -33,12 +34,12 @@ public class PCController {
 		robot.mouseMove(x, y);
 	}
 	
-	public void MoveMouseX(float deflection) {
+	public void MoveMouse(float xDeflection, float yDeflection) {
 		// The deflection comes in as a value ranging from -1.0 to 1.0
-	}
-	
-	public void MoveMouseY(float deflection) {
-		// The deflection comes in as a value ranging from -1.0 to 1.0
+		Point currentPosition = this.GetMousePosition();
+		int newX = (int) (currentPosition.x + (sensitivity * xDeflection));
+		int newY = (int) (currentPosition.y - (sensitivity * yDeflection));
+		this.MoveMouseToPosition(newX, newY);
 	}
 	
 	public void LeftClickDown() {
