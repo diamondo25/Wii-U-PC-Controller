@@ -4,9 +4,9 @@
 
 Control your PC with your Wii U gamepad controller!
 
-The goal of this project is to be able to control your computers mouse using your Wii U gamepad. Currently you can see some basic debugging information on both the PC server and Wii U gamepad as well as perform left and right clicks using ZL / ZR. Next, I will implement moving of the mouse using the analog sticks.
+The goal of this project is to be able to control your computers mouse using your Wii U gamepad. Currently you can control the mouse using the right analog stick and perform left and right clicks using the ZL and ZR buttons respectively.
 
-Once mouse control is fully implemented I will begin to explore the possibility of a virtual keyboard.
+In the future I will look into the possibility of adding a virtual keyboard.
 
 ## Installation / Usage
 * In the resources folder you'll find a file called `index.html`. Open this up and find the following line
