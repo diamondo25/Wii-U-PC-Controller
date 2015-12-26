@@ -25,7 +25,7 @@
 
         // Send the gamepad data to the server
         request.open("POST", "http://192.168.1.210:1337/Command", true);
-        request.setRequestHeader("Content-type", "application/x-www-form-urlencode");
+        request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
         request.send(JSON.stringify(gamepadData));
 
         // Update the page with the current values
